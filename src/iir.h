@@ -34,7 +34,6 @@
 #include <cstdint>
 #include <algorithm>
 #include <type_traits>
-#include "units.h"  // NOLINT
 
 namespace bfs {
 
@@ -45,15 +44,15 @@ class Iir {
                 "Only floating point types supported");
   void Init(T cutoff_hz, T samp_hz) {
     T fc = cutoff_hz / samp_hz;
-    b_ = static_cast<T>(2) - std::cos(BFS_2PI<T> * fc) -
-          std::sqrt(std::pow(static_cast<T>(2) - std::cos(BFS_2PI<T> * fc),
+    b_ = static_cast<T>(2) - std::cos((2*PI) * fc) -
+          std::sqrt(std::pow(static_cast<T>(2) - std::cos((2*PI) * fc),
           static_cast<T>(2)) - static_cast<T>(1));
     a_ = static_cast<T>(1) - b_;
   }
   void Init(T cutoff_hz, T samp_hz, T initial_val) {
     T fc = cutoff_hz / samp_hz;
-    b_ = static_cast<T>(2) - std::cos(BFS_2PI<T> * fc) -
-          std::sqrt(std::pow(static_cast<T>(2) - std::cos(BFS_2PI<T> * fc),
+    b_ = static_cast<T>(2) - std::cos((2*PI) * fc) -
+          std::sqrt(std::pow(static_cast<T>(2) - std::cos((2*PI) * fc),
           static_cast<T>(2)) - static_cast<T>(1));
     a_ = static_cast<T>(1) - b_;
     prev_output_ = initial_val;
